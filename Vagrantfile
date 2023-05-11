@@ -4,12 +4,6 @@ echo "I love Linux"
 touch file3
 SCRIPT
 
-$script = <<-SCRIPT
-echo "I like Vagrant"
-echo "I love Linux"
-touch file3
-SCRIPT
-
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
