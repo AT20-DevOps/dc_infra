@@ -1,3 +1,9 @@
+$script = <<-SCRIPT
+echo "I like Vagrant"
+echo "I love Linux"
+touch file3
+SCRIPT
+
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -10,11 +16,19 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
   end
-
   config.vm.provision :docker
-  config.vm.define "server-1" do |dockerserver|
-    dockerserver.vm.network "private_network", ip: '192.168.56.60'
-    dockerserver.vm.hostname = "dockerserver"
+  config.vm.provision :docker_compose
+
+
+  config.vm.define "ci-server" do |ciserver|
+    ciserver.vm.network "private_network", ip: '192.168.56.60'
+    ciserver.vm.hostname = "ci-server"
+  end
+
+  config.vm.define "server-2" do |server2|
+    server2.vm.network "private_network", ip: '192.168.56.61'
+    server2.vm.hostname = "server2"
+    server2.vm.provision :file, source: "Convert_Service", destination: "Convert_Services"
   end
 
 end
