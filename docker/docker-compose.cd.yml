@@ -12,7 +12,7 @@ services:
       - go_server:/home/go
 
   gocd_agent_ubuntu:
-    image: daniish77/at20_convert_service
+    image: daniish77/gocd_ubuntu_node
     container_name: gocd_agent_ubuntu
     restart: always
     depends_on:
@@ -20,7 +20,7 @@ services:
     environment:
       - GO_SERVER_URL=http://gocd_server:8153/go
       #- AGENT_AUTO_REGISTER_KEY=
-      - AGENT_AUTO_REGISTER_RESOURCES=ubuntu
+      - AGENT_AUTO_REGISTER_RESOURCES=ubuntu, node
       - AGENT_AUTO_REGISTER_HOSTNAME=gocd_agent_ubuntu
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
